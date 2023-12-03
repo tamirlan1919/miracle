@@ -1,0 +1,73 @@
+.lst {
+  font-family: 'Monsoserat';
+    
+}
+
+.net{
+  
+  font-family: 'Lobster Two', sans-serif;
+
+}
+.miracle{
+
+}
+.miracle_img{
+
+}
+.btns:hover{
+  color: #028103;
+  transition: .8s;
+}
+.wrap{
+  float: right;
+}
+
+
+@media(max-width:1023px){
+  .imgs{
+    display: none;
+  }
+}
+.list{
+  background-color: linear-gradient(140deg, #077408 17.86%, #000 58.15%);
+}
+@media(max-width:991px){
+  .users{
+    width: 100%;
+    background-color: red;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    
+    right: 0px;
+    padding-left: 0px;
+    justify-content: space-between;
+  }
+  .wrap{
+   float: none;
+   width: 100%;
+
+   
+  }
+}
+.my_btn{
+  border: none;
+}
+.bs{
+  
+  margin: 0 auto;
+}
+.cart span{
+  font-size: 15px;
+  position: relative;
+  background-color: white;
+  color: #077408;
+  left: -10px;
+}
+.favorite span{
+  font-size: 15px;
+  position: relative;
+  background-color: white;
+  color: #077408;
+  left: -20px;
+}
