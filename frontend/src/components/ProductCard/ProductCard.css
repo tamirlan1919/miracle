@@ -16,3 +16,12 @@
     transition-duration: 0.4s;
 
 }
+.loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 160px 0px;
+  }
+  

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 
 export const storeUser = (data) => {
-  console.log(data.user)
+
   localStorage.setItem(
     "user",
     JSON.stringify({

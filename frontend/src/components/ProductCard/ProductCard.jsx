@@ -3,44 +3,38 @@ import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaHeart } from 'react-icons/fa';
 import './ProductCard.css';
 import axios from 'axios';
-
+import { getProducts } from '../../redux/slice/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { PropagateLoader } from 'react-spinners';
 const ProductCard = () => {
-  const [products, setProducts] = useState([]);
+  const { products, status } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // Fetch data from the API when the component mounts
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/products?populate=*`, {
-          headers: {
-            Authorization: 'Bearer ' + process.env.REACT_APP_API_TOKEN,
-          },
-        });
+    // Dispatch the necessary actions to fetch products and categories when the component mounts
+    dispatch(getProducts());
+  }, [dispatch]);
 
-        console.log(response.data.data);
-        setProducts(response.data.data); // Access the 'data' property in the response
-
-      } catch (error) {
-        console.error('Error during fetch:', error);
-      }
-    };
-
-    fetchData(); // Call the fetchData function
-
-  }, []); // Empty dependency array to run once on mount
-
-  const isNewPrice = (product) => product.attributes.is_on_sale && product.attributes.old_price !== null;
-
-  const calculateDisplayPrice = (product) => {
-    if (isNewPrice(product)) {
-      const discountPercent = ((product.attributes.old_price - product.attributes.price) / product.attributes.old_price) * 100;
+  console.log(products==='loading')
+  const isNewPrice = (products) => products.attributes?.is_on_sale && products.attributes?.old_price !== null;
+  if(status==='loading'){
+    <div className='loader'>
+    <PropagateLoader color="#000" />
+  </div>
+  }
+  if (!Array.isArray(products)) {
+    return <p>No products available</p>;
+  }
+  const calculateDisplayPrice = (products) => {
+    if (isNewPrice(products)) {
+      const discountPercent = ((products.attributes?.old_price - products.attributes?.price) / products.attributes?.old_price) * 100;
       return (
         <>
           <span className="text-[20px] text-gray-800 mt-2 mr-2">
-            {parseFloat(product.attributes.price).toFixed(2)}₽
+            {parseFloat(products.attributes?.price).toFixed(2)}₽
           </span>
           <span className="text-[18px] text-gray-400 mt-2">
-            <s>{parseFloat(product.attributes.old_price).toFixed(2)}₽</s>
+            <s>{parseFloat(products.attributes?.old_price).toFixed(2)}₽</s>
             <span className="ml-2 text-red-500">-{discountPercent.toFixed(0)}%</span>
           </span>
         </>
@@ -48,34 +42,31 @@ const ProductCard = () => {
     } else {
       return (
         <span className="text-[20px] text-gray-800 mt-2 mr-2">
-          {parseFloat(product.attributes.price).toFixed(2)}₽
+          {parseFloat(products.attributes?.price).toFixed(2)}₽
         </span>
       );
     }
   };
-  products.forEach(element => {
-    console.log(element)
-  });
 
   return (
     <div className='container'>
       <div className="row">
-        {products.map((product) => (
-          <div key={product.id} className="max-w-sm cart col-xl-3 col-lg-4 col-md-6 col-sm-12 rounded-lg overflow-hidden">
-            <Link to={`http://127.0.0.1:3000/products/${product.attributes.slug}/${product.id}`}>
+        {products?.map((product) => (
+          <div key={product?.id} className="max-w-sm cart col-xl-3 col-lg-4 col-md-6 col-sm-12 rounded-lg overflow-hidden">
+            <Link to={`http://127.0.0.1:3000/products/${product.attributes?.slug}/${product?.id}`}>
               <button className="px-2 py-1 relative heart text-center float-right top-[30px] right-[30px] text-white rounded">
                 <FaHeart className="inline-block mr-1 text-2xl text-gray-300" />
               </button>
               <img
-                src={`${process.env.REACT_APP_UPLOAD_URL+product.attributes.image.data.attributes.url}`}
-                alt={product.attributes.name}
+                src={`${process.env.REACT_APP_UPLOAD_URL+product.attributes?.image.data.attributes.url}`}
+                alt={product.attributes?.name}
                 className="w-full max-h-[170px] object-contain object-center"
               />
             </Link>
 
             <div className="p-4">
-              <h2 className="text-2xl font-semibold font-bold text-gray-800">{product.attributes.name}</h2>
-              <p className="text-sm text-gray-600 mt-2">{product.attributes.brand ? product.attributes.brand.name : ''}</p>
+              <h2 className="text-2xl font-semibold font-bold text-gray-800">{product.attributes?.name}</h2>
+              <p className="text-sm text-gray-600 mt-2">{product.attributes?.brand ? product.attributes.brand?.name : ''}</p>
               <div className="flex">{calculateDisplayPrice(product)}</div>
 
               <div className="mt-2">

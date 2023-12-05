@@ -18,35 +18,42 @@ import Favorites from './components/Favorites/Favorites';
 import Cart from './components/Cart/Cart';
 import Home from './pages/Home/Home';
 import FooterComp from './components/Footer/Footer';
+import { MantineProvider } from '@mantine/core';
+import { NotPage } from './pages/NotPage/NotPage';
+import Logout from './components/Logout';
+
 function App() {
 
 
 
 
   return (
+    <>
+    <MantineProvider defaultColorScheme='dark'>
     <BrowserRouter>
     <Header/>
     <Routes>
-      {/* подстановочный путь */}
       <Route path="/" element={<Home />} />
       <Route path="shops" element={<Shops />} />
       <Route path="products/:slug/:id" element={<ProductDetails />} />
       <Route path = 'about' element = {<About/>}/>
       <Route path = 'work' element = {<Work/>}/>
       <Route path="login" element={<Login />} />
+      <Route path="logout" element={<Logout />} />
       <Route path="favorites" element={<Favorites />} />
       <Route path="sign-up" element={<Registration />} />
       <Route path="cart" element={<Cart />} />
       <Route path="categories/:categorySlug" element={<CategoryPage/>} />
       <Route path="brands/:slug" element={<BrandProducts/>} />
+      <Route element={<NotPage/>} />
 
     </Routes>
     <FooterComp/>
   </BrowserRouter>
 
-    
+  </MantineProvider>
 
-
+  </>
 
   );
 }

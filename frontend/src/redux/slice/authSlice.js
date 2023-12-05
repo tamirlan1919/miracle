@@ -11,7 +11,7 @@ const initialState = {
 export const login = createAsyncThunk("/login", async (params) => {
   try {
     const { data } = await axios.post("auth/local?populate=*", params);
-    console.log(data.jwt)
+    console.log(data.jwt);
     if (data.jwt) {
       storeUser(data);
     }
@@ -19,30 +19,31 @@ export const login = createAsyncThunk("/login", async (params) => {
   } catch (error) {
     console.warn({
       error: error?.message,
-    });
-    alert(error);
+    });    // Rethrow the error to be caught by the calling code
+    
   }
 });
 
 export const regist = createAsyncThunk("/register", async (params) => {
   try {
-    const { data } = await axios.post("api/auth/local/register", params);
+    const { data } = await axios.post("auth/local/register", params);
     if (data.jwt) {
       storeUser(data);
+      
     }
     return data;
   } catch (error) {
     console.warn({
       error: error?.message,
     });
-    alert(error);
+    
   }
 });
 
 export const authMe = createAsyncThunk("/authMe", async () => {
   const { jwt } = userData();
   try {
-    const { data } = await axios.get("api/users/me?populate=*", {
+    const { data } = await axios.get("/users/me?populate=*", {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -52,7 +53,7 @@ export const authMe = createAsyncThunk("/authMe", async () => {
     console.warn({
       error: error?.message,
     });
-    alert(error);
+    
   }
 });
 
@@ -65,7 +66,7 @@ export const deleteProductInFavorite = createAsyncThunk(
       return data?.favorite;
     } catch (error) {
       console.warn(error);
-      alert(error);
+      
     }
   }
 );
@@ -79,35 +80,41 @@ export const deleteProductInCart = createAsyncThunk(
       return data?.cart;
     } catch (error) {
       console.warn(error);
-      alert(error);
+      
     }
   }
 );
 
 export const postProductInCart = createAsyncThunk(
   "/post/product",
-  async (field) => {
+  async (productId) => {
     const { userId } = userData();
+    
     try {
-      const { data } = await axios.put(`/users/${userId}`, field);
+      const { data } = await axios.put(`/users/${userId}`, {
+        cart: {
+          products: [...userId.cart.products, { productId }],
+        },
+      });
       return data?.cart;
     } catch (error) {
       console.warn(error);
-      alert(error);
     }
   }
 );
 
 export const postProductInFavorite = createAsyncThunk(
   "/post/favorite",
-  async (field) => {
+  async (productId) => {
     const { userId } = userData();
     try {
-      const { data } = await axios.put(`/users/${userId}`, field);
-      return data?.cart;
+      // Здесь вы можете отправить запрос на добавление товара в избранное на Strapi.
+      const { data } = await axios.put(`/users/${userId}`, {
+        favorite: [...userId.favorite, { productId }],
+      });
+      return data?.favorite;
     } catch (error) {
       console.warn(error);
-      alert(error);
     }
   }
 );
@@ -167,7 +174,6 @@ const authSlice = createSlice({
       .addCase(postProductInCart.fulfilled, (state, action) => {
         state.data.cart = action.payload;
       })
-
       .addCase(postProductInFavorite.fulfilled, (state, action) => {
         state.data.favorite = action.payload;
       });

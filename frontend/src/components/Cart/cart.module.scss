@@ -1,0 +1,258 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  h1 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f8fa;
+    height: 80px;
+    font-weight: 200;
+  }
+
+  .cart {
+    width: 100%;
+    padding: 40px 0px;
+    display: flex;
+    justify-content: space-between;
+
+    .products {
+      width: calc(66.6666666667% - 24px);
+      display: flex;
+      flex-direction: column;
+
+      hr {
+        margin: 20px 0px;
+      }
+
+      .product_item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .product_info {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100%;
+          padding: 20px 10px;
+
+          .name {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            button {
+              width: 20px;
+              height: 20px;
+              cursor: pointer;
+              background-position: center;
+              background-color: inherit;
+              border: none;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background-size: 100%;
+              background-image: url("https://cdn-icons-png.flaticon.com/512/4441/4441955.png");
+            }
+          }
+
+          h2 {
+            font-size: 18px;
+            font-weight: 400;
+          }
+
+          .size {
+            p {
+              font-size: 12px;
+            }
+          }
+
+          span {
+            font-size: 12px;
+          }
+
+          .amount {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 190px;
+
+            button {
+              cursor: pointer;
+              width: 20px;
+              height: 20px;
+              border: none;
+              background: inherit;
+              background-position: center;
+              background-size: 100%;
+              background-image: url("https://cdn-icons-png.flaticon.com/512/126/126471.png");
+            }
+
+            .select_amout {
+              display: flex;
+              align-items: center;
+
+              select {
+                font-size: 16px;
+                outline: none;
+                padding: 1px 4px;
+                margin-left: 4px;
+                border: 1px solid rgb(202, 202, 202);
+                border-radius: 4px;
+              }
+
+              p {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .payment {
+      width: 33.3333333333%;
+      padding: 0px 40px;
+
+      .not_auth {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0px;
+        p {
+          font-size: 16px;
+          font-weight: 400;
+        }
+
+        button {
+          width: 100%;
+          transition-duration: 0.3s;
+          margin: 10px auto 15px auto;
+          padding: 16px 0px;
+          background-color: inherit;
+          border: 1px solid black;
+          font-weight: 600;
+          cursor: pointer;
+          font-size: 16px;
+
+          &:hover {
+            background-color: black;
+            color: white;
+            transition-duration: 0.3s;
+          }
+        }
+      }
+
+      .total {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .order_total_hr {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 5px 0px 20px 0px;
+
+          span {
+            font-size: 18px;
+            font-weight: 600;
+          }
+
+          p {
+            font-size: 18px;
+            font-weight: 600;
+          }
+        }
+
+        .order_total {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+
+          span {
+            font-size: 14px;
+            color: #8d8c8c;
+          }
+
+          p {
+            font-size: 14px;
+            color: #8d8c8c;
+          }
+        }
+
+        button {
+          width: 100%;
+          transition-duration: 0.3s;
+          margin: 10px auto 15px auto;
+          font-weight: 600;
+          padding: 16px 0px;
+          color: white;
+          background-color: #222222;
+          cursor: pointer;
+          border: none;
+
+          &:hover {
+            background-color: #555;
+            color: white;
+            transition-duration: 0.3s;
+          }
+        }
+      }
+    }
+  }
+}
+
+.empty_cart {
+  height: 500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+  flex-direction: column;
+  align-items: center;
+
+  .empty_title {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    align-items: center;
+    line-height: 80px;
+    span {
+      font-size: 25px;
+      font-weight: 200;
+    }
+    button {
+      border: 1px solid black;
+      background-color: inherit;
+      padding: 15px 0px;
+      cursor: pointer;
+      transition-duration: 0.3s;
+      font-size: 16px;
+      width: 500px;
+
+      &:hover {
+        transition-duration: 0.3s;
+        background-color: black;
+        color: white;
+      }
+    }
+  }
+}
+
+.loader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 160px 0px;
+}

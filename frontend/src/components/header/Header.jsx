@@ -18,7 +18,6 @@ import { CButton, COffcanvas, COffcanvasHeader, COffcanvasTitle, CCloseButton, C
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
   const { categories, status } = useSelector((state) => state.categories);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -35,10 +34,9 @@ const Header = () => {
   useEffect(() => {
     // Dispatch the necessary actions to fetch products and categories when the component mounts
     dispatch(authMe());
-    dispatch(getProducts());
     dispatch(getCategories());
   }, [dispatch]);
-
+  
   return (
     <>
       <div className='block items-center p-2 bg-[#F0F0F0]'>
@@ -82,20 +80,30 @@ const Header = () => {
               </a>
               <span>0</span>
               </div>
-              <div className="user">
-              <a href="/login">
-                <button type="button" className="mr-4 btns   border-none pointer-events-auto" >
-                  <AiOutlineUser />
-                </button>
-              </a>
-              
-              </div>
               <div className="cart max-w-[46px]">
                 <a href="/cart">
                   <button className='btns'><AiOutlineShopping /></button>
                 </a>
                 <span>0</span>
               </div>
+              <div className="user">
+                
+              {data ? (
+              // Если данные о пользователе есть, выводим его имя
+              (
+                
+              <a href='/logout'><button><AiOutlineUser /><span className='text-[15px]'>{data.username}</span></button></a> 
+              )
+            ) : (
+              
+              <a href="/login">
+                <button type="button" className="mr-4 btns border-none pointer-events-auto">
+                  <AiOutlineUser />
+                </button>
+              </a>
+           )} 
+              </div>
+
               </div>
           </div>
         </div>

@@ -26,6 +26,8 @@
     "react-router-dom": "^6.20.1",
     "react-scripts": "^5.0.1",
     "react-slick": "^0.29.0",
+    "react-spinners": "^0.13.8",
+    "sass": "^1.69.5",
     "slick-carousel": "^1.8.1",
     "tabler": "^1.0.0-alpha.8",
     "web-vitals": "^2.1.4"
